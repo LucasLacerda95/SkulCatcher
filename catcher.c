@@ -15,10 +15,9 @@
 #define ANSI_COLOR_RESET "\x1b[0m"
 
 char matrix[10][15];
-int positionX, positionY, keyPressed,points = 0;
-
-
-
+int positionX, positionY, keyPressed,points= 0;
+int xFruit = 0;
+int yFruit = 0;
 
 
 void matrixLimit()
@@ -46,29 +45,34 @@ void makeMatrix()
 
     int axleX, axleY = 0;
 
-    //randomSkul();
-
+    int rond = 0;
     for (int jogadas = 0; jogadas < 10000; jogadas++)
-    {
+    {   
+        
         header();
         for (int cont0 = 0; cont0 <= 10; ++cont0)
         {
             printf("\n\n   ");
             for (int cont1 = 0; cont1 <= 15; ++cont1)
             {   
-                int rond = 0;
+                if(rond == 0){
+                srand((unsigned)time(NULL));
+                xFruit = rand() % 10; 
+                yFruit = rand() % 15;
+                rond = 20;
+                }
+
                 int axleX = cont0;
                 int axleY = cont1;
-                 
-                matrix[axleX][axleY] = '.';
-                
-                if(rond == 0){
-                    
-                    matrix[3][9] = 'O';
-                    rond = 20;
-                }
-                
 
+                matrix[xFruit][yFruit] = 'O';
+
+               if(matrix[axleX][axleY] != 'O') matrix[axleX][axleY] = '.';
+               
+               
+                
+                
+                
                 matrixLimit();
                 if(axleX == positionX && axleY == positionY) matrix[axleX][axleY] = '@';
 
