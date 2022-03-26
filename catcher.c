@@ -15,9 +15,10 @@
 #define ANSI_COLOR_RESET "\x1b[0m"
 
 char matrix[10][15];
-int positionX, positionY, keyPressed,points= 0;
+int positionX, positionY, keyPressed = 0;
 int xFruit = 0;
 int yFruit = 0;
+int points = 0;
 
 
 void matrixLimit()
@@ -55,6 +56,7 @@ void makeMatrix()
             printf("\n\n   ");
             for (int cont1 = 0; cont1 <= 15; ++cont1)
             {   
+                matrixLimit();
                 if(rond == 0){
                 srand((unsigned)time(NULL));
                 xFruit = rand() % 10; 
@@ -67,15 +69,9 @@ void makeMatrix()
 
                 matrix[xFruit][yFruit] = 'O';
 
-               if(matrix[axleX][axleY] != 'O') matrix[axleX][axleY] = '.';
-               
-               
-                
-                
-                
-                matrixLimit();
+                if(matrix[axleX][axleY] != 'O') matrix[axleX][axleY] = '.';
                 if(axleX == positionX && axleY == positionY) matrix[axleX][axleY] = '@';
-
+                       
 
 
                 printf("%c", matrix[axleX][axleY]);
@@ -84,6 +80,10 @@ void makeMatrix()
             printf("      ");
 
         }
+        if(positionY == yFruit && positionX == xFruit){
+            jogadas++;
+            points += 1;
+        }    
 
         printf("\n");
         keyPressed = getch();
@@ -95,8 +95,10 @@ void makeMatrix()
 void header()
 {
     printf(ANSI_COLOR_BLUE "   Skul-Catcher 1.0");
-    printf("\t  Captured Skulls - %i" ANSI_COLOR_RESET, points);
+    printf("\t  Captured Skulls - " ANSI_COLOR_RESET);
     printf(ANSI_COLOR_RED "\t\tTime - XX:XX:XX" ANSI_COLOR_BLUE);
+    printf("\t\t ( %i - %i)  (%i)", positionX, positionY,points);
+
 
     return;
 }
